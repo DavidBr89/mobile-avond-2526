@@ -1,5 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import Test from "./src/components/Test";
+import BlueText from "./src/components/BlueText";
 
 // Union types
 type ID = number | string;
@@ -113,7 +115,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Mobile</Text>
+      <BlueText style={{ flex: 1 }}>Mobile</BlueText>
+      <Test />
+      <BlueText style={{ flex: 1, backgroundColor: "yellow" }}>Hallo</BlueText>
       <StatusBar style="auto" />
     </View>
   );
@@ -122,8 +126,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+    // flexDirection: "row",
+    backgroundColor: "red",
     justifyContent: "center",
+    // alignItems: "center",
+    color: "blue",
   },
 });
