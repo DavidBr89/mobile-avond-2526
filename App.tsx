@@ -2,6 +2,12 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Test from "./src/components/Test";
 import BlueText from "./src/components/BlueText";
+import ParkingsListScreen from "./src/screens/ParkingsListScreen";
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 // Union types
 type ID = number | string;
@@ -113,13 +119,18 @@ export default function App() {
 
   const status: OrderStatus = "confirmed";
 
+  // const { top, bottom, left, right } = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
-      <BlueText style={{ flex: 1 }}>Mobile</BlueText>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        {/* <BlueText style={{ flex: 1 }}>Mobile</BlueText>
       <Test />
-      <BlueText style={{ flex: 1, backgroundColor: "yellow" }}>Hallo</BlueText>
-      <StatusBar style="auto" />
-    </View>
+      <BlueText style={{ flex: 1, backgroundColor: "yellow" }}>Hallo</BlueText> */}
+        <ParkingsListScreen />
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -127,8 +138,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // flexDirection: "row",
-    backgroundColor: "red",
-    justifyContent: "center",
+    backgroundColor: "white",
+    // justifyContent: "center",
     // alignItems: "center",
     color: "blue",
   },
