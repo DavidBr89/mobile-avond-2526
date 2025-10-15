@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import ParkingsStackNavigator from "./src/navigation/ParkingsStackNavigator";
 
 // Union types
 type ID = number | string;
@@ -121,16 +123,23 @@ export default function App() {
 
   // const { top, bottom, left, right } = useSafeAreaInsets();
 
+  // return (
+  //   <SafeAreaProvider>
+  //     <SafeAreaView style={styles.container}>
+  //       {/* <BlueText style={{ flex: 1 }}>Mobile</BlueText>
+  //     <Test />
+  //     <BlueText style={{ flex: 1, backgroundColor: "yellow" }}>Hallo</BlueText> */}
+  //       <ParkingsListScreen />
+  //       <StatusBar style="auto" />
+  //     </SafeAreaView>
+  //   </SafeAreaProvider>
+  // );
+
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        {/* <BlueText style={{ flex: 1 }}>Mobile</BlueText>
-      <Test />
-      <BlueText style={{ flex: 1, backgroundColor: "yellow" }}>Hallo</BlueText> */}
-        <ParkingsListScreen />
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <ParkingsStackNavigator />
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 }
 
