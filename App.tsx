@@ -12,6 +12,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import ParkingsStackNavigator from "./src/navigation/ParkingsStackNavigator";
 
 import "./global.css";
+import ParkingsTabNavigator from "./src/navigation/ParkingsTabNavigator";
 
 // Union types
 type ID = number | string;
@@ -139,7 +140,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <ParkingsStackNavigator />
+      <ParkingsTabNavigator />
       <StatusBar style="auto" />
     </NavigationContainer>
   );

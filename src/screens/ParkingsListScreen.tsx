@@ -12,18 +12,10 @@ import Axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { ParkingsStackNavProps } from "../navigation/types";
 
 const URL =
   "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records";
-
-interface Parking {
-  id: string;
-  name: string;
-  description: string;
-  totalcapacity: number;
-  availablecapacity: number;
-  occupation: number;
-}
 
 interface AxiosParkingResponse {
   total_count: number;
@@ -33,7 +25,10 @@ interface AxiosParkingResponse {
 const ParkingsListScreen = () => {
   //   const [count, setCount] = useState(0);
 
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<ParkingsStackNavProps<"home">["navigation"]>();
+
+  // const navigation = useNavigation();
 
   const [parkings, setParkings] = useState<Parking[]>([]);
 

@@ -3,8 +3,9 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ParkingsListScreen from "../screens/ParkingsListScreen";
 import ParkingsDetailScreen from "../screens/ParkingsDetailScreen";
+import { ParkingsStackParamsList } from "./types";
 
-const ParkingsStack = createStackNavigator();
+const ParkingsStack = createStackNavigator<ParkingsStackParamsList>();
 
 const ParkingsStackNavigator = () => {
   return (
