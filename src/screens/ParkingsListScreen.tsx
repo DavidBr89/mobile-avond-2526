@@ -59,7 +59,7 @@ const ParkingsListScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-amber-300">
       {/* Mobile niet meer echt mappen en zeker niet over data waarvan we niet weten hoeveel er inzitten */}
       {/* {parkings.map((p) => (
         <Text style={{ height: 400 }} key={p.id}>

@@ -11,6 +11,8 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import ParkingsStackNavigator from "./src/navigation/ParkingsStackNavigator";
 
+import "./global.css";
+
 // Union types
 type ID = number | string;
 
