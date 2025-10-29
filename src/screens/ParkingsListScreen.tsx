@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Button,
   FlatList,
   Pressable,
@@ -13,6 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ParkingsStackNavProps } from "../navigation/types";
+import { useQuery } from "@tanstack/react-query";
+import { fetchParkings } from "../api/parkings";
 
 const URL =
   "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records";
@@ -30,29 +33,54 @@ const ParkingsListScreen = () => {
 
   // const navigation = useNavigation();
 
-  const [parkings, setParkings] = useState<Parking[]>([]);
+  // const [parkings, setParkings] = useState<Parking[]>([]);
 
-  useEffect(() => {
-    // OPGELET: De callback functie dat je meegeeft in een useEffect mag geen async functie zijn return Promise<void>
-    const fetchParkings = async () => {
-      try {
-        const response = await Axios.get<AxiosParkingResponse>(URL);
-        setParkings(response.data.results);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   // OPGELET: De callback functie dat je meegeeft in een useEffect mag geen async functie zijn return Promise<void>
+  //   const fetchParkings = async () => {
+  //     try {
+  //       const response = await Axios.get<AxiosParkingResponse>(URL);
+  //       setParkings(response.data.results);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    fetchParkings();
+  //   fetchParkings();
 
-    // const timerId = setInterval(() => {
-    //   console.log("Tick");
-    // }, 1000);
+  //   // const timerId = setInterval(() => {
+  //   //   console.log("Tick");
+  //   // }, 1000);
 
-    // // Cleanup functie
-    // return () => clearInterval(timerId);
-  }, []);
+  //   // // Cleanup functie
+  //   // return () => clearInterval(timerId);
+  // }, []);
 
+  const { data, dataUpdatedAt, isError, error, isLoading } = useQuery({
+    queryKey: ["fetchParkings"],
+    queryFn: fetchParkings,
+    initialData: {
+      total_count: 0,
+      results: [],
+    },
+    refetchInterval: 5 * 60 * 1000,
+  });
+
+  if (isLoading) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View>
+        <Text>{error.message}</Text>
+      </View>
+    );
+  }
   return (
     <View className="flex-1 bg-amber-300">
       {/* Mobile niet meer echt mappen en zeker niet over data waarvan we niet weten hoeveel er inzitten */}
@@ -61,18 +89,23 @@ const ParkingsListScreen = () => {
           {p.name}
         </Text>
       ))} */}
+
+      <Text className="text-2xl font-bold">
+        {new Date(dataUpdatedAt).toLocaleTimeString()}
+      </Text>
+
       <FlatList
-        data={parkings}
+        data={data.results}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={styles.item}
+            className="flex-1 flex-row justify-between items-center bg-white h-24 my-2 px-4"
             onPress={() => {
               navigation.navigate("detail", { parking: item });
             }}
             onLongPress={() => {
               console.log("Lang geklikt op item ", item.name);
             }}>
-            <Text>{item.name}</Text>
+            <Text className="text-2xl font-black">{item.name}</Text>
             <MaterialCommunityIcons
               name="chevron-right"
               size={28}
@@ -141,6 +174,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     height: 150,
     marginVertical: 8,
     backgroundColor: "white",

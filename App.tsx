@@ -14,6 +14,8 @@ import ParkingsStackNavigator from "./src/navigation/ParkingsStackNavigator";
 import "./global.css";
 import ParkingsTabNavigator from "./src/navigation/ParkingsTabNavigator";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 // Union types
 type ID = number | string;
 
@@ -66,6 +68,9 @@ enum StatusCodes {
 }
 
 type OrderStatus = "pending" | "new" | "confirmed" | "cancelled";
+
+// QueryClient aanmaken
+const queryClient = new QueryClient();
 
 export default function App() {
   const message: string = "Hello world!";
@@ -139,10 +144,12 @@ export default function App() {
   // );
 
   return (
-    <NavigationContainer>
-      <ParkingsTabNavigator />
-      <StatusBar style="auto" />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <ParkingsTabNavigator />
+        <StatusBar style="auto" />
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 

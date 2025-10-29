@@ -1450,6 +1450,16 @@
     use-latest-callback "^0.2.4"
     use-sync-external-store "^1.5.0"
 
+"@react-navigation/drawer@^7.7.1":
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-7.7.1.tgz#a1e81be9ffb933a29d0efdbb44a8569126d1fab4"
+  integrity sha512-a2JlpVNwvBuYBmvnI2X4wl9VJFyx2dTyqX75L24H+P9ZmUpGsksF94qNOU4Wi3k0f4q8168aSud0vPDnkff2Rw==
+  dependencies:
+    "@react-navigation/elements" "^2.8.0"
+    color "^4.2.3"
+    react-native-drawer-layout "^4.2.0"
+    use-latest-callback "^0.2.4"
+
 "@react-navigation/elements@^2.6.5":
   version "2.6.5"
   resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-2.6.5.tgz#e9038e96044e47f43f7f432edc798d6b0185fc01"
@@ -1512,6 +1522,18 @@
   integrity sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==
   dependencies:
     "@sinonjs/commons" "^3.0.0"
+
+"@tanstack/query-core@5.90.5":
+  version "5.90.5"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.90.5.tgz#0175f9f517514906db8ab379589ed3f96694ecc4"
+  integrity sha512-wLamYp7FaDq6ZnNehypKI5fNvxHPfTYylE0m/ZpuuzJfJqhR5Pxg9gvGBHZx4n7J+V5Rg5mZxHHTlv25Zt5u+w==
+
+"@tanstack/react-query@^5.90.5":
+  version "5.90.5"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.90.5.tgz#545e61282c787bd87ac5785da9a4943462f78ef6"
+  integrity sha512-pN+8UWpxZkEJ/Rnnj2v2Sxpx1WFlaa9L6a4UO89p6tTQbeo+m0MS8oYDjbggrR8QcTyjKoYWKS3xJQGr3ExT8Q==
+  dependencies:
+    "@tanstack/query-core" "5.90.5"
 
 "@types/babel__core@^7.1.14":
   version "7.20.5"
@@ -4472,6 +4494,14 @@ react-native-css-interop@0.2.1:
     debug "^4.3.7"
     lightningcss "~1.27.0"
     semver "^7.6.3"
+
+react-native-drawer-layout@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-4.2.0.tgz#8b178c883aa6496b8259b2b7e72e296308dcf975"
+  integrity sha512-XFGK5RMcVhEqr2F4iH/cTXrcTm1uK3gIBNFPqHNO7rCXuXZTPBbQYA5yc9/Lqgw2KNQ3sAeHKvW6/WoTURo/eA==
+  dependencies:
+    color "^4.2.3"
+    use-latest-callback "^0.2.4"
 
 react-native-gesture-handler@~2.28.0:
   version "2.28.0"

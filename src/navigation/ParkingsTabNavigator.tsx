@@ -13,9 +13,20 @@ const ParkingsTab = createBottomTabNavigator<ParkingsTabParamsList>();
 
 const ParkingsTabNavigator = () => {
   return (
-    <ParkingsTab.Navigator>
+    <ParkingsTab.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#1d40be",
+        },
+        headerTintColor: "white",
+        tabBarStyle: {
+          backgroundColor: "#1d40be",
+        },
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "#020169ed",
+      }}>
       <ParkingsTab.Screen
-        name="list"
+        name="parkingsStack"
         component={ParkingsStackNavigator}
         options={{
           title: "Lijst",
@@ -44,7 +55,7 @@ const ParkingsTabNavigator = () => {
         }}
       />
       <ParkingsTab.Screen
-        name="settings"
+        name="settingsDrawer"
         component={ParkingsSettingsScreen}
         options={{
           title: "Instellingen",

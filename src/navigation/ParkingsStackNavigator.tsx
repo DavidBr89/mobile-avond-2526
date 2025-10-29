@@ -9,7 +9,20 @@ const ParkingsStack = createStackNavigator<ParkingsStackParamsList>();
 
 const ParkingsStackNavigator = () => {
   return (
-    <ParkingsStack.Navigator>
+    <ParkingsStack.Navigator
+      screenOptions={{
+        // header: ({ options }) => (
+        //   <View className="h-36 bg-sky-600 flex justify-end items-center p-6">
+        //     <Text className="text-2xl font-black text-white">
+        //       {options.title}
+        //     </Text>
+        //   </View>
+        // ),
+        headerStyle: {
+          backgroundColor: "#1d40be",
+        },
+        headerTintColor: "white",
+      }}>
       <ParkingsStack.Screen
         name="home"
         component={ParkingsListScreen}
