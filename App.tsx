@@ -17,6 +17,9 @@ import ParkingsTabNavigator from "./src/navigation/ParkingsTabNavigator";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FavoritesProvider from "./src/contexts/FavoritesContext";
 
+import { Provider } from "react-redux";
+import { store } from "./src/store/store";
+
 // Union types
 type ID = number | string;
 
@@ -145,14 +148,16 @@ export default function App() {
   // );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <FavoritesProvider>
-        <NavigationContainer>
-          <ParkingsTabNavigator />
-          <StatusBar style="auto" />
-        </NavigationContainer>
-      </FavoritesProvider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <FavoritesProvider>
+          <NavigationContainer>
+            <ParkingsTabNavigator />
+            <StatusBar style="auto" />
+          </NavigationContainer>
+        </FavoritesProvider>
+      </QueryClientProvider>
+    </Provider>
   );
 }
 

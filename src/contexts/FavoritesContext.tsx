@@ -5,6 +5,7 @@ import { createContext, PropsWithChildren, useState } from "react";
 interface FavoritesContextType {
   favorites: Parking[];
   toggleFavorite: (item: Parking) => void;
+  isInFavorites: (id: string) => boolean;
 }
 
 export const FavoritesContext = createContext<FavoritesContextType | null>(
@@ -23,9 +24,12 @@ const FavoritesProvider = (props: PropsWithChildren) => {
     }
   };
 
+  const isInFavorites = (id: string) => favorites.some((f) => f.id === id);
+
   return (
     // Koppeling tussen aangemaakte context en uw eigen provider component
-    <FavoritesContext.Provider value={{ favorites, toggleFavorite }}>
+    <FavoritesContext.Provider
+      value={{ favorites, toggleFavorite, isInFavorites }}>
       {props.children}
     </FavoritesContext.Provider>
   );
