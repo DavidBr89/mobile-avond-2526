@@ -15,6 +15,7 @@ import "./global.css";
 import ParkingsTabNavigator from "./src/navigation/ParkingsTabNavigator";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import FavoritesProvider from "./src/contexts/FavoritesContext";
 
 // Union types
 type ID = number | string;
@@ -145,10 +146,12 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <ParkingsTabNavigator />
-        <StatusBar style="auto" />
-      </NavigationContainer>
+      <FavoritesProvider>
+        <NavigationContainer>
+          <ParkingsTabNavigator />
+          <StatusBar style="auto" />
+        </NavigationContainer>
+      </FavoritesProvider>
     </QueryClientProvider>
   );
 }

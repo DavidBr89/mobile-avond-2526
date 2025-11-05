@@ -8,6 +8,8 @@ import ParkingsMapScreen from "../screens/ParkingsMapScreen";
 import ParkingsSettingsScreen from "../screens/ParkingsSettingsScreen";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import ParkingsDrawerNavigator from "./ParkingsDrawerNavigator";
+import FavoritesScreen from "../screens/FavoritesScreen";
 
 const ParkingsTab = createBottomTabNavigator<ParkingsTabParamsList>();
 
@@ -55,10 +57,23 @@ const ParkingsTabNavigator = () => {
         }}
       />
       <ParkingsTab.Screen
+        name="favorites"
+        component={FavoritesScreen}
+        options={{
+          title: "Favorieten",
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <MaterialCommunityIcons name="star" color={color} size={size} />
+            );
+          },
+        }}
+      />
+      <ParkingsTab.Screen
         name="settingsDrawer"
-        component={ParkingsSettingsScreen}
+        component={ParkingsDrawerNavigator}
         options={{
           title: "Instellingen",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => {
             return (
               <MaterialCommunityIcons name="cog" color={color} size={size} />

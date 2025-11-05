@@ -16,6 +16,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ParkingsStackNavProps } from "../navigation/types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchParkings } from "../api/parkings";
+import { useFavorites } from "../hooks/useFavorites";
 
 const URL =
   "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records";
@@ -30,6 +31,8 @@ const ParkingsListScreen = () => {
 
   const navigation =
     useNavigation<ParkingsStackNavProps<"home">["navigation"]>();
+
+  const { toggleFavorite } = useFavorites();
 
   // const navigation = useNavigation();
 
@@ -82,7 +85,7 @@ const ParkingsListScreen = () => {
     );
   }
   return (
-    <View className="flex-1 bg-amber-300">
+    <View className="flex-1 ">
       {/* Mobile niet meer echt mappen en zeker niet over data waarvan we niet weten hoeveel er inzitten */}
       {/* {parkings.map((p) => (
         <Text style={{ height: 400 }} key={p.id}>
@@ -106,11 +109,25 @@ const ParkingsListScreen = () => {
               console.log("Lang geklikt op item ", item.name);
             }}>
             <Text className="text-2xl font-black">{item.name}</Text>
-            <MaterialCommunityIcons
-              name="chevron-right"
-              size={28}
-              color="#dadada"
-            />
+            <View className="flex flex-row gap-4">
+              <TouchableOpacity
+                onPress={() => {
+                  toggleFavorite(item);
+                }}
+                className="bg-sky-700 rounded-full p-2">
+                <MaterialCommunityIcons
+                  name="star-outline"
+                  size={28}
+                  color="#fcd34d"
+                />
+              </TouchableOpacity>
+
+              <MaterialCommunityIcons
+                name="chevron-right"
+                size={28}
+                color="#dadada"
+              />
+            </View>
             {/* <Button
               onPress={() => {
                 console.log("Op detail knop geklikt");
