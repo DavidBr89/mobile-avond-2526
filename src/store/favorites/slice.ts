@@ -12,9 +12,8 @@ const favoritesSlice = createSlice({
       }
       return [...state, action.payload];
     },
-    remove: (state, action) => {
-      // TODO: Remove methode implementeren
-      return [];
+    remove: (state, action: PayloadAction<string>) => {
+      return state.filter((f) => f.id !== action.payload);
     },
   },
 });

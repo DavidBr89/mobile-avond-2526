@@ -17,8 +17,8 @@ import { ParkingsStackNavProps } from "../navigation/types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchParkings } from "../api/parkings";
 import { useFavorites } from "../hooks/useFavorites";
-import { useAppDispatch } from "../hooks/reduxHooks";
-import { add } from "../store/favorites/slice";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { add, remove } from "../store/favorites/slice";
 
 const URL =
   "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records";
@@ -37,6 +37,8 @@ const ParkingsListScreen = () => {
   const { toggleFavorite, isInFavorites } = useFavorites();
 
   const dispatch = useAppDispatch();
+
+  const favorites = useAppSelector((storeState) => storeState.favorites);
 
   // const navigation = useNavigation();
 
@@ -119,12 +121,19 @@ const ParkingsListScreen = () => {
                   // Favorite toggle met de Context
                   // toggleFavorite(item);
                   // Favorite toevoegen met Redux
-                  dispatch(add(item));
+                  if (favorites.some((f) => f.id === item.id)) {
+                    dispatch(remove(item.id));
+                  } else {
+                    dispatch(add(item));
+                  }
                 }}
                 className="bg-sky-700 rounded-full p-2">
-                {/* TODO: Oplossen dat dit momenteel vanuit Redux gecontroleerd */}
                 <MaterialCommunityIcons
-                  name={isInFavorites(item.id) ? "star" : "star-outline"}
+                  name={
+                    favorites.some((f) => f.id === item.id)
+                      ? "star"
+                      : "star-outline"
+                  }
                   size={28}
                   color="#fcd34d"
                 />

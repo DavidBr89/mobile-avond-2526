@@ -18,7 +18,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FavoritesProvider from "./src/contexts/FavoritesContext";
 
 import { Provider } from "react-redux";
-import { store } from "./src/store/store";
+import { persistor, store } from "./src/store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 // Union types
 type ID = number | string;
@@ -149,14 +150,16 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <FavoritesProvider>
-          <NavigationContainer>
-            <ParkingsTabNavigator />
-            <StatusBar style="auto" />
-          </NavigationContainer>
-        </FavoritesProvider>
-      </QueryClientProvider>
+      <PersistGate persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          <FavoritesProvider>
+            <NavigationContainer>
+              <ParkingsTabNavigator />
+              <StatusBar style="auto" />
+            </NavigationContainer>
+          </FavoritesProvider>
+        </QueryClientProvider>
+      </PersistGate>
     </Provider>
   );
 }
