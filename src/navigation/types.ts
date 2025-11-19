@@ -6,6 +6,7 @@ export type ParkingsStackParamsList = {
   home: undefined;
   detail: { parking: Parking };
   test: undefined;
+  addParking: undefined;
 };
 
 export type ParkingsTabParamsList = {

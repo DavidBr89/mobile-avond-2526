@@ -1,13 +1,20 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ParkingsListScreen from "../screens/ParkingsListScreen";
 import ParkingsDetailScreen from "../screens/ParkingsDetailScreen";
-import { ParkingsStackParamsList } from "./types";
+import { ParkingsStackNavProps, ParkingsStackParamsList } from "./types";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AddParkingScreen from "../screens/AddParkingScreen";
+import { useNavigation } from "@react-navigation/native";
 
 const ParkingsStack = createStackNavigator<ParkingsStackParamsList>();
 
 const ParkingsStackNavigator = () => {
+  // const navigation =
+  //   useNavigation<ParkingsStackNavProps<"home">["navigation"]>();
+
   return (
     <ParkingsStack.Navigator
       screenOptions={{
@@ -26,11 +33,22 @@ const ParkingsStackNavigator = () => {
       <ParkingsStack.Screen
         name="home"
         component={ParkingsListScreen}
-        options={{
+        options={({ navigation }) => ({
           title: "Parkings",
-        }}
+          headerRight: ({ tintColor }) => (
+            <TouchableOpacity
+              className="p-2 mr-2 mb-2 rounded-full bg-amber-500"
+              onPress={() => {
+                // Navigeer naar addParking
+                navigation.navigate("addParking");
+              }}>
+              <MaterialCommunityIcons name="plus" color={tintColor} size={20} />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <ParkingsStack.Screen name="detail" component={ParkingsDetailScreen} />
+      <ParkingsStack.Screen name="addParking" component={AddParkingScreen} />
     </ParkingsStack.Navigator>
   );
 };
