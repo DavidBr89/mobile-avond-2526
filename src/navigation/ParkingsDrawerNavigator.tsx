@@ -12,6 +12,7 @@ import React from "react";
 import ParkingsAboutScreen from "../screens/ParkingsAboutScreen";
 import ParkingsProfileScreen from "../screens/ParkingsProfileScreen";
 import ParkingsSettingsScreen from "../screens/ParkingsSettingsScreen";
+import CameraScreen from "../screens/CameraScreen";
 
 const ParkingsDrawerNavigator = () => {
   return (
@@ -40,6 +41,13 @@ const ParkingsDrawerNavigator = () => {
         }}
         name="profile"
         component={ParkingsProfileScreen}
+      />
+      <ParkingDrawerNavigator.Screen
+        options={{
+          title: "Camera",
+        }}
+        name="camera"
+        component={CameraScreen}
       />
       <ParkingDrawerNavigator.Screen
         name="settings"

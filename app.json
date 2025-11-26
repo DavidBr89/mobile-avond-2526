@@ -26,6 +26,14 @@
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
-    }
+    },
+    "plugins": [[
+      "expo-location",
+      {
+        "locationAlwaysAndWhenInUsePermission": "Deze app gebruikt jouw locatie voor de parkings.",
+        "isAndroidBackgroundLocationEnabled": true,
+        "isAndroidForegroundServiceEnabled": true
+      }
+    ]]
   }
 }

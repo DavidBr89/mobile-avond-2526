@@ -5,4 +5,9 @@ interface Parking {
   totalcapacity: number;
   availablecapacity: number;
   occupation: number;
+  location: {
+    lat: number;
+    lon: number;
+  };
+  urllinkaddress: string;
 }

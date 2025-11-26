@@ -19,6 +19,7 @@ export type ParkingsTabParamsList = {
 export type ParkingsDrawerParamsList = {
   profile: undefined;
   about: undefined;
+  camera: undefined;
   settings: undefined;
 };
 
