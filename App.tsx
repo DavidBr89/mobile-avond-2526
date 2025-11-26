@@ -20,6 +20,7 @@ import FavoritesProvider from "./src/contexts/FavoritesContext";
 import { Provider } from "react-redux";
 import { persistor, store } from "./src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 
 // Union types
 type ID = number | string;
@@ -151,14 +152,16 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <QueryClientProvider client={queryClient}>
-          <FavoritesProvider>
-            <NavigationContainer>
-              <ParkingsTabNavigator />
-              <StatusBar style="auto" />
-            </NavigationContainer>
-          </FavoritesProvider>
-        </QueryClientProvider>
+        <KeyboardProvider>
+          <QueryClientProvider client={queryClient}>
+            <FavoritesProvider>
+              <NavigationContainer>
+                <ParkingsTabNavigator />
+                <StatusBar style="auto" />
+              </NavigationContainer>
+            </FavoritesProvider>
+          </QueryClientProvider>
+        </KeyboardProvider>
       </PersistGate>
     </Provider>
   );
