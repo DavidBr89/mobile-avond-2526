@@ -21,6 +21,12 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { KeyboardProvider } from "react-native-keyboard-controller";
+import AuthStackNavigator from "./src/navigation/AuthStackNavigator";
+
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "./src/config/firebase";
 
 // Union types
 type ID = number | string;
@@ -78,76 +84,30 @@ type OrderStatus = "pending" | "new" | "confirmed" | "cancelled";
 // QueryClient aanmaken
 const queryClient = new QueryClient();
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
-  const message: string = "Hello world!";
-  let number: number = 45;
-  let isVerified: boolean = false;
+  const [user, setUser] = useState<User | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-  // Inline typen van deze functie
-  const sum = (a: number, b: number): number => {
-    return a + b;
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (usr) => {
+      setUser(usr);
+      setIsAuthLoading(false);
+    });
 
-  const sumTyped: SumFn = (a, b) => a + b;
+    return unsubscribe;
+  }, []);
 
-  const result = sumTyped(2, 3);
+  useEffect(() => {
+    if (!isAuthLoading) {
+      SplashScreen.hideAsync();
+    }
+  }, [isAuthLoading]);
 
-  // Objecten
-
-  const person: Person = {
-    firstName: "Tim",
-    lastName: "Doe",
-    age: 21,
-  };
-
-  const student: Student = {
-    firstName: "John",
-    lastName: "Doe",
-    age: 35,
-    isVerified: true,
-    studentNumber: "jd232424524",
-    study: () => {},
-  };
-
-  const student2: IStudent = {
-    firstName: "Jane",
-    lastName: "Doe",
-    age: 25,
-    isVerified: true,
-    studentNumber: "jd56486483",
-  };
-
-  // Arrays
-
-  const arr: NumberArr = [1, 2, 3];
-  const strArr: string[] = ["Web 1", "Web 2"];
-
-  const students: Array<Student> = [];
-
-  // students.map(s => ({ age: s.age}) );
-
-  // Tuples
-
-  const web1Tuple: [string, number] = ["Web 1", 6];
-  web1Tuple[0] = "Web 2";
-
-  const drivingDirection: Direction = Direction.DOWN;
-
-  const status: OrderStatus = "confirmed";
-
-  // const { top, bottom, left, right } = useSafeAreaInsets();
-
-  // return (
-  //   <SafeAreaProvider>
-  //     <SafeAreaView style={styles.container}>
-  //       {/* <BlueText style={{ flex: 1 }}>Mobile</BlueText>
-  //     <Test />
-  //     <BlueText style={{ flex: 1, backgroundColor: "yellow" }}>Hallo</BlueText> */}
-  //       <ParkingsListScreen />
-  //       <StatusBar style="auto" />
-  //     </SafeAreaView>
-  //   </SafeAreaProvider>
-  // );
+  if (isAuthLoading) {
+    return null;
+  }
 
   return (
     <Provider store={store}>
@@ -156,7 +116,12 @@ export default function App() {
           <QueryClientProvider client={queryClient}>
             <FavoritesProvider>
               <NavigationContainer>
-                <ParkingsTabNavigator />
+                {user !== null ? (
+                  <ParkingsTabNavigator />
+                ) : (
+                  <AuthStackNavigator />
+                )}
+                {/* <ParkingsTabNavigator /> */}
                 <StatusBar style="auto" />
               </NavigationContainer>
             </FavoritesProvider>
