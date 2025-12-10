@@ -19,6 +19,7 @@ import { fetchParkings } from "../api/parkings";
 import { useFavorites } from "../hooks/useFavorites";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { add, remove } from "../store/favorites/slice";
+import BlueText from "../components/BlueText";
 
 const URL =
   "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records";
@@ -114,7 +115,7 @@ const ParkingsListScreen = () => {
             onLongPress={() => {
               console.log("Lang geklikt op item ", item.name);
             }}>
-            <Text className="text-2xl font-black">{item.name}</Text>
+            <BlueText className="text-2xl font-black">{item.name}</BlueText>
             <View className="flex flex-row gap-4">
               <TouchableOpacity
                 onPress={() => {

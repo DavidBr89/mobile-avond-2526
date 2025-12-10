@@ -19,6 +19,7 @@ export default BlueText;
 
 const styles = StyleSheet.create({
   text: {
+    fontFamily: "Bitcount",
     color: "blue",
   },
 });

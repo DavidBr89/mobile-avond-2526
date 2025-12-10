@@ -13,6 +13,7 @@ import ParkingsAboutScreen from "../screens/ParkingsAboutScreen";
 import ParkingsProfileScreen from "../screens/ParkingsProfileScreen";
 import ParkingsSettingsScreen from "../screens/ParkingsSettingsScreen";
 import CameraScreen from "../screens/CameraScreen";
+import ProductsScreent from "../screens/ProductsScreent";
 
 const ParkingsDrawerNavigator = () => {
   return (
@@ -55,6 +56,13 @@ const ParkingsDrawerNavigator = () => {
           title: "Instellingen",
         }}
         component={ParkingsSettingsScreen}
+      />
+      <ParkingDrawerNavigator.Screen
+        name="products"
+        options={{
+          title: "Producten",
+        }}
+        component={ProductsScreent}
       />
     </ParkingDrawerNavigator.Navigator>
   );

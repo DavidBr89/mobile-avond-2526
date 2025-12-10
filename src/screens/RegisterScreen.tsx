@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import React from "react";
 import { replace, useFormik } from "formik";
@@ -11,6 +12,8 @@ import * as Yup from "yup";
 import MyTextInput from "../components/MyTextInput";
 import { useNavigation } from "@react-navigation/native";
 import { AuthStackNavProps } from "../navigation/types";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 // Validatie schema met Yup
 const registerValidationSchema = Yup.object().shape({
@@ -33,9 +36,32 @@ const RegisterScreen = () => {
       confirmPassword: "",
     },
     validationSchema: registerValidationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       // Hier kun je de registratie logica implementeren
       console.log("Registreer met:", values.email, values.password);
+      try {
+        await createUserWithEmailAndPassword(
+          auth,
+          values.email,
+          values.password
+        );
+      } catch (error) {
+        Alert.alert("Fout", "Fout tijdens het registreren", [
+          {
+            style: "destructive",
+            text: "Custom tekst",
+            onPress: () => {
+              console.log("Geklikt op de knop in de alert!");
+            },
+          },
+          {
+            text: "Tweede knop",
+            onPress: () => {
+              console.log("Geklikt op de tweede knop in de alert!");
+            },
+          },
+        ]);
+      }
     },
   });
 

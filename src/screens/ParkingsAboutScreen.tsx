@@ -2,6 +2,8 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ParkingsDrawerNavProps } from "../navigation/types";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 const ParkingsAboutScreen = () => {
   const navigation =
@@ -22,6 +24,13 @@ const ParkingsAboutScreen = () => {
         title="Open drawer"
         onPress={() => {
           navigation.openDrawer();
+        }}
+      />
+
+      <Button
+        title="Logout"
+        onPress={() => {
+          signOut(auth);
         }}
       />
     </View>

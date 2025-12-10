@@ -28,6 +28,8 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "./src/config/firebase";
 
+import { useFonts } from "expo-font";
+
 // Union types
 type ID = number | string;
 
@@ -90,6 +92,10 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
+  const [fontLoaded, fontError] = useFonts({
+    Bitcount: require("./assets/fonts/Bitcount.ttf"),
+  });
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (usr) => {
       setUser(usr);
@@ -100,12 +106,12 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!isAuthLoading) {
+    if (!isAuthLoading && fontLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [isAuthLoading]);
+  }, [isAuthLoading, fontLoaded]);
 
-  if (isAuthLoading) {
+  if (isAuthLoading && !fontLoaded) {
     return null;
   }
 
